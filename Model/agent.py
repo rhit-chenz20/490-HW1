@@ -44,13 +44,21 @@ class Genome(Individual):
         self.ran = ran
 
     def step(self):
-        """
-        NOT YET IMPLEMENTED
-        """
         self.calFitness()
 
     def mutate(self):
-        """
-        NOT YET IMPLEMENTED
-        """
+        mutationCount = 0
+        for x in range(len(self.genome)): 
+            if(self.ran.uniform(0,1) <= self.mutationRate):
+                mutationCount = mutationCount + 1
+                anotherindex = self.ran.randint(0,len(self.genome)-1)
+                while(anotherindex==x):
+                    anotherindex = self.ran.randint(0,len(self.genome)-1)
+                temp = self.genome[x]
+                self.genome[x] = self.genome[anotherindex]
+                self.genome[anotherindex] = temp
+        # print(mutationCount)
+    
+    def __repr__(self):
+        return "".join(str(x)+"," for x in self.genome) + " fitness: "+str(self.fitness)
 

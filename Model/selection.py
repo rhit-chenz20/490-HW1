@@ -31,6 +31,7 @@ class Top50(Selection):
         parent = []
         for x in range(int(len(pop)*self.top)):
             parent.append(pop[x])
+
         return parent
 
 
@@ -51,11 +52,11 @@ class Tournament(Selection):
         pop.sort(reverse=True)
         parent = []
         for x in range(int(len(pop)/2)):
-            index1 = self.ran.ranInt(len(pop))
-            index2 = self.ran.ranInt(len(pop))
+            index1 = self.ran.randint(0,len(pop)-1)
+            index2 = self.ran.randint(0,len(pop)-1)
             if(index1 == index2):
-                index2 = self.ran.ranInt(len(pop))
-            if(pop[index1].fitness >= pop[index2].fitness):
+                index2 = self.ran.randint(0,len(pop)-1)
+            if(pop[index1].fitness <= pop[index2].fitness):
                 parent.append(pop[index1])
             else:
                 parent.append(pop[index2])

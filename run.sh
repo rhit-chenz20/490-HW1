@@ -7,14 +7,14 @@ mkdir result/${date}
 mkdir result/${date}/CSV
 mkdir result/${date}/plot
 
-for SIZE in 100
+for SIZE in 10
 do
-    for V in {1..10}
+    for V in 1
     do
         let "count+=1"
         echo "running $count"
 
-        python3 run.py -size $SIZE -length "" -mutateR "" -points "" -prange "" -fn "result/${date}/CSV/_$V" -e "" -sel "" -fit "" -max "" 
+        python3 run.py -size $SIZE -length 15 -mutateR 0.1 -points 15 -prange 10 -fn "result/${date}/CSV/_$V" -e 1 -sel 0 -fit 0 -max 2000 -c True
         # if ((count>$max))
         # then
         #     wait
@@ -26,32 +26,32 @@ done
 echo "Finished simulation. Now plotting"
 
 
-for MS in 10
-do
-    for FS in 10
-    do
-        for FM in 1
-        do
-            for COST in 0
-            do
-                for FIT in 0
-                do
+# for MS in 10
+# do
+#     for FS in 10
+#     do
+#         for FM in 1
+#         do
+#             for COST in 0
+#             do
+#                 for FIT in 0
+#                 do
 
-                    let "c+=1"
-                    python3 plot.py -files result/${date}/CSV/""_*.csv -out result/${date}/plot/"" 
-                    echo "finished plotting $c"
+#                     let "c+=1"
+#                     python3 plot.py -files result/${date}/CSV/""_*.csv -out result/${date}/plot/"" 
+#                     echo "finished plotting $c"
                     
-                    if ((c>$max))
-                        then
-                            wait
-                            let "c=0"
-                        fi
+#                     if ((c>$max))
+#                         then
+#                             wait
+#                             let "c=0"
+#                         fi
 
-                done
-            done
-        done
-    done
-done              
-echo "finished plotting"
+#                 done
+#             done
+#         done
+#     done
+# done              
+# echo "finished plotting"
 
-# bash runmanythre.sh
+# # bash runmanythre.sh
