@@ -14,7 +14,7 @@ do
         let "count+=1"
         echo "running $count"
 
-        python3 run.py -size $SIZE -length 15 -mutateR 0.1 -points 15 -prange 10 -fn "result/${date}/CSV/_$V" -e 1 -sel 0 -fit 0 -max 2000 -c True
+        python3 run.py -size $SIZE -length 15 -mutateR 0.1 -points 15 -prange 10 -fn "result/${date}/CSV/" -e 1 -sel 0 -fit 0 -max 600 -c True
         # if ((count>$max))
         # then
         #     wait

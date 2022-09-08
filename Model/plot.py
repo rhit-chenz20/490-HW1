@@ -74,7 +74,7 @@ class Plot():
         )
 
         color_lines = iter(plt.cm.rainbow(np.linspace(0, 1, len(self.legends))))
-
+        list(map.keys())
         # n sets of data (same length as legends)
         for x in range(len(thre_conc)):
             c_line=next(color_lines)

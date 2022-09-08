@@ -1,7 +1,5 @@
-import statistics
 import random
 import csv
-import numpy as np
 
 from .agent import Genome
 from .selection import Selection
@@ -17,18 +15,28 @@ class Model():
         args
     ):
         seed = random.randint(0,100000)
+        # Sucessful trail's seed
+        # seed = 77431
         random.seed(seed)
-        self.bestFitness = 0
+
+        self.bestFitness = 1000000
         self.mutationRate = args.mutationRate/args.genomeLength
         self.maxGeneration = args.maxGeneration
         self.generation = 0
+        self.elitism = args.elitism
         self.crossover_1 = args.crossover
-        self.selection = Selection.get_sel(args.selection,args.topPercent,random, args.elitism)
+        self.selection = Selection.get_sel(args.selection,args.topPercent,random)
         self.topPercent = args.topPercent
-        self.file = open(args.filename+str(seed)+ '.csv', "w+")
+        self.file = open(args.filename+str(seed)+ '_2.csv', "w+")
         self.writer = csv.writer(self.file)
         title = ["Generation", "Max_Fitness","Ave_Fitness", "Min_Fitness"]
+        title_genome = ["Generation"]
+        for x in range(args.pointSize):
+            title_genome.append(x)
+        self.geno_file = open(args.filename+str(seed)+ '_geno.csv', "w+")
+        self.geno_writer = csv.writer(self.geno_file)
         self.writeToFile(self.writer, title)
+        self.writeToFile(self.geno_writer, title_genome)
         self.points = self.generatePoints(args.pointSize, args.pointRange)
         self.population = self.generateIndividuals(args.size, args.fitnessFunction, random, args.pointSize)
 
@@ -83,9 +91,12 @@ class Model():
             fitnesses.append(self.population[x].fitness)
         
         # Highest fitness
-        if (self.population[0].fitness > self.bestFitness):
+        if (self.population[0].fitness < self.bestFitness):
             self.bestFitness = self.population[0].fitness
-            print("Best Fitness: " + str(self.bestFitness) + " at generation " + str(self.generation))
+            row = [self.generation]
+            row.extend(self.population[0].genome)
+            self.writeToFile(self.geno_writer, row)
+        print("Best Fitness: " + str(self.population[0].fitness) + " at generation " + str(self.generation))
         result.append(self.population[0].fitness)
         # print(self.population[0])
         # print("Best Fitness: " + self.bestFitness + " at generation " + self.generation)
@@ -134,11 +145,13 @@ class Model():
         Generate the next generation
         """
         parent = self.selection.choose_parent(self.population)
-        # print("------parent------")
-        # print(parent)
-        # print("------------")
+        # for x in range(self.)
+        parent.sort(reverse=True)
+        elited = []
+        for x in range(min(self.elitism, len(parent))):
+            elited.append(parent[x])
+
         for x in range(0,len(parent)-1,2):
-            
             if(self.crossover_1):
                 child1  = Genome(self.crossover(parent[x], parent[x+1]),parent[x].fitness_function, parent[x].ran,parent[x].mutationRate)           
                 child2  = Genome(self.crossover(parent[x+1], parent[x]),parent[x].fitness_function, parent[x].ran,parent[x].mutationRate)
@@ -154,7 +167,11 @@ class Model():
             self.population[x+(len(parent))] = child1
             self.population[x+1+(len(parent))] = child2
         if (len(parent) % 2 != 0):
-            self.population[len(self.population)-1] = Genome(parent[len(parent)-1].genome,parent[len(parent)-1].fitness_function, parent[len(parent)-1].ran,parent[len(parent)-1].mutationRate)     
+            self.population[len(self.population)-1] = Genome(parent[len(parent)-1].genome,parent[len(parent)-1].fitness_function, parent[len(parent)-1].ran,parent[len(parent)-1].mutationRate)   
+
+        random.shuffle(self.population)  
+        for x in range(len(elited)):
+            self.population[x] = elited[x]
 
     def crossover(self, genome1, genome2):
         gene1 = genome1.genome

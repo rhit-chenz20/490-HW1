@@ -27,7 +27,7 @@ class Individual():
         pass
 
     def __lt__(self, otherF):
-        return self.fitness < otherF.fitness
+        return self.fitness > otherF.fitness
 
 class Genome(Individual):
     def __init__(

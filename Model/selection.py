@@ -1,10 +1,10 @@
 from abc import abstractmethod
 class Selection():
-    def get_sel(num, top, ran, elitism):
+    def get_sel(num, top, ran, ):
         if num == 0 :
-            return Top50(top, elitism)
+            return Top50(top, )
         elif num == 1:
-            return Tournament(ran, elitism)
+            return Tournament(ran, )
 
     @abstractmethod
     def choose_parent(self, pop):
@@ -14,14 +14,14 @@ class Top50(Selection):
     def __init__(
         self,
         top_percent,
-        elitism
+        
     ):
         """
         top_percent: The percentage of the individuals being selected
         """
         super().__init__()
         self.top = top_percent
-        self.elitism = elitism
+        # self.elitism = elitism
 
     def choose_parent(self, pop):
         """
@@ -39,11 +39,11 @@ class Tournament(Selection):
     def __init__(
         self,
         ran,
-        elitism
+        
     ):
         super().__init__()
         self.ran = ran
-        self.elitism = elitism
+        # self.elitism = elitism
 
     def choose_parent(self, pop):
         """
