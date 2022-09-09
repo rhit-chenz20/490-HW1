@@ -14,7 +14,9 @@ class Model():
         self,
         args
     ):
-        seed = random.randint(0,100000)
+        if(args.seed==-1):
+            seed = random.randint(0,100000)
+        else: seed = args.seed
         # Sucessful trail's seed
         # seed = 77431
         random.seed(seed)
@@ -28,7 +30,9 @@ class Model():
         self.maxGeneration = args.maxGeneration
         self.generation = 0
         self.elitism = args.elitism
-        self.crossover_1 = args.crossover
+        if(args.crossover==1):
+            self.crossover_1 = True
+        else: self.crossover_1 =False
         self.selection = Selection.get_sel(args.selection,args.topPercent,random)
         self.topPercent = args.topPercent
         self.file = open(args.filename+str(seed)+ '_2.csv', "w+")
@@ -102,9 +106,9 @@ class Model():
 
         if (self.population[0].fitness < self.bestFitness):
             self.bestFitness = self.population[0].fitness
-            self.bestGeneration = self.generation
             row = [self.generation]
             row.extend(self.population[0].genome)
+            row.extend(self.population[0].fitness)
             self.writeToFile(self.geno_writer, row)
         # print("Best Fitness: " + str(self.population[0].fitness) + " at generation " + str(self.generation))
         result.append(self.population[0].fitness)
@@ -167,11 +171,15 @@ class Model():
             if(self.crossover_1):
                 child1  = Genome(self.crossover(parent[x], parent[x+1]),parent[x].fitness_function, parent[x].ran,parent[x].mutationRate)           
                 child2  = Genome(self.crossover(parent[x+1], parent[x]),parent[x].fitness_function, parent[x].ran,parent[x].mutationRate)
-
+                print("parent1:"+str(parent[x]))
+                print("parent2:"+str(parent[x+1]))
+                print("child:   "+str(child1))
             else:
                 child1  = Genome(parent[x].genome,parent[x].fitness_function, parent[x].ran,parent[x].mutationRate)           
                 child2  = Genome(parent[x+1].genome,parent[x].fitness_function, parent[x].ran,parent[x].mutationRate)     
             child1.mutate()
+            # print("parent:        "+str(parent[x]))
+            # print("mutated child: "+str(child1))
             child2.mutate()
 
             self.population[x] = child1
