@@ -18,7 +18,11 @@ class Model():
         # Sucessful trail's seed
         # seed = 77431
         random.seed(seed)
-
+        self.seed = seed
+        self.approxFound = False
+        self.approxBestFitness = 1000000
+        self.approxBestGeneration = 0
+        self.bestGeneration = 0
         self.bestFitness = 1000000
         self.mutationRate = args.mutationRate/args.genomeLength
         self.maxGeneration = args.maxGeneration
@@ -91,12 +95,18 @@ class Model():
             fitnesses.append(self.population[x].fitness)
         
         # Highest fitness
+        if ((self.population[0].fitness <= (284.38086286247795*1.1)) and not self.approxFound):
+            self.approxBestFitness = self.population[0].fitness
+            self.approxBestGeneration = self.generation
+            self.approxFound = True
+
         if (self.population[0].fitness < self.bestFitness):
             self.bestFitness = self.population[0].fitness
+            self.bestGeneration = self.generation
             row = [self.generation]
             row.extend(self.population[0].genome)
             self.writeToFile(self.geno_writer, row)
-        print("Best Fitness: " + str(self.population[0].fitness) + " at generation " + str(self.generation))
+        # print("Best Fitness: " + str(self.population[0].fitness) + " at generation " + str(self.generation))
         result.append(self.population[0].fitness)
         # print(self.population[0])
         # print("Best Fitness: " + self.bestFitness + " at generation " + self.generation)
@@ -120,13 +130,15 @@ class Model():
         for x in range(self.maxGeneration+1):
             self.evolve()
             # self.writeToFile(self.writer,self.calData())
-
         self.end()
 
     def end(self):
         """
         End the evolution
         """
+        print("Seed: " + str(self.seed))
+        print("Best Fitness: " + str(self.bestFitness) + " at generation: " + str(self.bestGeneration))
+        print("Approx Best Fitness: " + str(self.approxBestFitness) + " at generation: " + str(self.approxBestGeneration))
         print("End of simulation")
         self.file.close()
 
