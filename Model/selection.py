@@ -1,10 +1,10 @@
 from abc import abstractmethod
 class Selection():
-    def get_sel(num, top, ran, ):
+    def get_sel(num, top, ran, numb):
         if num == 0 :
             return Top50(top, )
         elif num == 1:
-            return Tournament(ran, )
+            return Tournament(ran, numb)
 
     @abstractmethod
     def choose_parent(self, pop):
@@ -39,10 +39,11 @@ class Tournament(Selection):
     def __init__(
         self,
         ran,
-        
+        num
     ):
         super().__init__()
         self.ran = ran
+        self.num = num
         # self.elitism = elitism
 
     def choose_parent(self, pop):
@@ -52,12 +53,11 @@ class Tournament(Selection):
         pop.sort(reverse=True)
         parent = []
         for x in range(int(len(pop)/2)):
-            index1 = self.ran.randint(0,len(pop)-1)
-            index2 = self.ran.randint(0,len(pop)-1)
-            if(index1 == index2):
-                index2 = self.ran.randint(0,len(pop)-1)
-            if(pop[index1].fitness <= pop[index2].fitness):
-                parent.append(pop[index1])
-            else:
-                parent.append(pop[index2])
+            indexes=[]
+            while(len(indexes)!= self.num):
+                index = self.ran.randint(0,len(pop)-1)
+                if(index not in indexes):
+                    indexes.append(index)
+
+            parent.append(pop[min(indexes)])
         return parent

@@ -16,6 +16,7 @@ parser.add_argument('-per', '--topPercent', type = float, default=0.5, required=
 parser.add_argument('-c', '--crossover', type = int, default=0, required=False)
 parser.add_argument('-d', '--debug', type = bool, default=False, required=False)
 parser.add_argument('-seed', '--seed', type = float, default=-1, required=False)
+parser.add_argument('-n', '--num_parent', type = int, default=2, required=False)
 args = parser.parse_args()
 
 model = Model(
