@@ -174,6 +174,8 @@ class Model():
                 child1  = Genome(parent[x].genome,parent[x].fitness_function, parent[x].ran,parent[x].mutationRate)           
                 child2  = Genome(parent[x+1].genome,parent[x].fitness_function, parent[x].ran,parent[x].mutationRate)     
             child1.mutate()
+            # print("parent:        "+str(parent[x]))
+            # print("mutated child: "+str(child1))
             child2.mutate()
 
             self.population[x] = child1
