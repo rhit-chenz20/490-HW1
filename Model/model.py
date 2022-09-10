@@ -14,9 +14,11 @@ class Model():
         self,
         args
     ):
+
         if(args.seed==-1):
             seed = random.randint(0,100000)
         else: seed = args.seed
+
         # Sucessful trail's seed
         # seed = 77431
         random.seed(seed)
