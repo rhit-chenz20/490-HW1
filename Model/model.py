@@ -35,7 +35,7 @@ class Model():
         if(args.crossover==1):
             self.crossover_1 = True
         else: self.crossover_1 =False
-        self.selection = Selection.get_sel(args.selection,args.topPercent,random)
+        self.selection = Selection.get_sel(args.selection,args.topPercent,random, args.num_parent)
         self.topPercent = args.topPercent
         self.file = open(args.filename+str(seed)+ '_2.csv', "w+")
         self.writer = csv.writer(self.file)
