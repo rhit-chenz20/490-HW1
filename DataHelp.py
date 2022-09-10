@@ -1,4 +1,6 @@
 import statistics
-x = [844,1420,754,1368,1763,4424,1513,5430,1082,2958]
+x = [121,50,348,81,74,70,47,69]
 x.sort()
 print(statistics.pstdev(x))
+print(statistics.mean(x))
+print(statistics.median(x))
