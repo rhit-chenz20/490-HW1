@@ -17,7 +17,7 @@ do
         let "count+=1"
         echo "running $count"
 
-        python3 run.py -size $SIZE -length 15 -mutateR 0.1 -points 15 -prange 10 -fn "result/${date}/CSV/exp_4/${V}_${N}_" -e 0 -sel 1 -fit 0 -max 1000 -c 1 -n $N -seed 47491
+        python3 run.py -size $SIZE -length 15 -mutateR 0.1 -points 15 -prange 10 -fn "result/${date}/CSV/exp_4/${V}_${N}_" -e 0 -sel 1 -fit 0 -max 1000 -c 1 -n $N -seed 82663
     done
     done
 done
