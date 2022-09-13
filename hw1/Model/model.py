@@ -107,12 +107,13 @@ class Model():
             self.approxFound = True
 
         if (self.population[0].fitness < self.bestFitness):
+            self.bestGeneration = self.generation
             self.bestFitness = self.population[0].fitness
             row = [self.generation]
             row.extend(self.population[0].genome)
             row.append(self.population[0].fitness)
             self.writeToFile(self.geno_writer, row)
-            print("Best Fitness: " + str(self.population[0].fitness) + " at generation " + str(self.generation))
+            # print("Best Fitness: " + str(self.population[0].fitness) + " at generation " + str(self.generation))
         result.append(self.population[0].fitness)
         # print(self.population[0])
         # print("Best Fitness: " + self.bestFitness + " at generation " + self.generation)
@@ -135,6 +136,7 @@ class Model():
         """
         for x in range(self.maxGeneration+1):
             self.evolve()
+            # print(self.generation)
         self.end()
 
     def end(self):

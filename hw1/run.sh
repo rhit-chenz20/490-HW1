@@ -17,8 +17,44 @@ do
         let "count+=1"
         echo "running $count"
 
-        python3 run.py -size $SIZE -length 15 -mutateR 0.1 -points 15 -prange 10 -fn "result/${date}/CSV/exp_4/${V}_${N}_" -e 0 -sel 1 -fit 0 -max 1000 -c 1 -n $N -seed 82663
-    done
+        python run.py -size $SIZE -length 15 -mutateR 0.001 -points 15 -prange 10 -fn "result/${date}/CSV/_.001_" -e 0 -sel 0 -fit 0 -max 5000 -c 1 -seed 1345
+        python run.py -size $SIZE -length 15 -mutateR 0.01 -points 15 -prange 10 -fn "result/${date}/CSV/_.01_" -e 0 -sel 0 -fit 0 -max 5000 -c 1 -seed 1345
+        python run.py -size $SIZE -length 15 -mutateR 0.1 -points 15 -prange 10 -fn "result/${date}/CSV/_.1_" -e 0 -sel 0 -fit 0 -max 5000 -c 1 -seed 1345
+
+
+        python run.py -size $SIZE -length 15 -mutateR 0.001 -points 15 -prange 10 -fn "result/${date}/CSV/_.001_" -e 0 -sel 0 -fit 0 -max 5000 -c 1 -seed 457
+        python run.py -size $SIZE -length 15 -mutateR 0.01 -points 15 -prange 10 -fn "result/${date}/CSV/_.01_" -e 0 -sel 0 -fit 0 -max 5000 -c 1 -seed 457
+        python run.py -size $SIZE -length 15 -mutateR 0.1 -points 15 -prange 10 -fn "result/${date}/CSV/_.1_" -e 0 -sel 0 -fit 0 -max 5000 -c 1 -seed 457
+
+        python run.py -size $SIZE -length 15 -mutateR 0.001 -points 15 -prange 10 -fn "result/${date}/CSV/_.001_" -e 0 -sel 0 -fit 0 -max 5000 -c 1 -seed 56865
+        python run.py -size $SIZE -length 15 -mutateR 0.01 -points 15 -prange 10 -fn "result/${date}/CSV/_.01_" -e 0 -sel 0 -fit 0 -max 5000 -c 1 -seed 56865
+        python run.py -size $SIZE -length 15 -mutateR 0.1 -points 15 -prange 10 -fn "result/${date}/CSV/_.1_" -e 0 -sel 0 -fit 0 -max 5000 -c 1 -seed 56865
+
+        python run.py -size $SIZE -length 15 -mutateR 0.001 -points 15 -prange 10 -fn "result/${date}/CSV/_.001_" -e 0 -sel 0 -fit 0 -max 5000 -c 1 -seed 34565
+        python run.py -size $SIZE -length 15 -mutateR 0.01 -points 15 -prange 10 -fn "result/${date}/CSV/_.01_" -e 0 -sel 0 -fit 0 -max 5000 -c 1 -seed 34565
+        python run.py -size $SIZE -length 15 -mutateR 0.1 -points 15 -prange 10 -fn "result/${date}/CSV/_.1_" -e 0 -sel 0 -fit 0 -max 5000 -c 1 -seed 34565
+
+        python run.py -size $SIZE -length 15 -mutateR 0.001 -points 15 -prange 10 -fn "result/${date}/CSV/_.001_" -e 0 -sel 0 -fit 0 -max 5000 -c 1 -seed 25554
+        python run.py -size $SIZE -length 15 -mutateR 0.01 -points 15 -prange 10 -fn "result/${date}/CSV/_.01_" -e 0 -sel 0 -fit 0 -max 5000 -c 1 -seed 25554
+        python run.py -size $SIZE -length 15 -mutateR 0.1 -points 15 -prange 10 -fn "result/${date}/CSV/_.1_" -e 0 -sel 0 -fit 0 -max 5000 -c 1 -seed 25554
+
+        python run.py -size $SIZE -length 15 -mutateR 0.001 -points 15 -prange 10 -fn "result/${date}/CSV/_.001_" -e 0 -sel 0 -fit 0 -max 5000 -c 1 -seed 765
+        python run.py -size $SIZE -length 15 -mutateR 0.01 -points 15 -prange 10 -fn "result/${date}/CSV/_.01_" -e 0 -sel 0 -fit 0 -max 5000 -c 1 -seed 765
+        python run.py -size $SIZE -length 15 -mutateR 0.1 -points 15 -prange 10 -fn "result/${date}/CSV/_.1_" -e 0 -sel 0 -fit 0 -max 5000 -c 1 -seed 765
+
+        python run.py -size $SIZE -length 15 -mutateR 0.001 -points 15 -prange 10 -fn "result/${date}/CSV/_.001_" -e 0 -sel 0 -fit 0 -max 5000 -c 1 -seed 25645
+        python run.py -size $SIZE -length 15 -mutateR 0.01 -points 15 -prange 10 -fn "result/${date}/CSV/_.01_" -e 0 -sel 0 -fit 0 -max 5000 -c 1 -seed 25645
+        python run.py -size $SIZE -length 15 -mutateR 0.1 -points 15 -prange 10 -fn "result/${date}/CSV/_.1_" -e 0 -sel 0 -fit 0 -max 5000 -c 1 -seed 25645
+
+        python run.py -size $SIZE -length 15 -mutateR 0.001 -points 15 -prange 10 -fn "result/${date}/CSV/_.001_" -e 0 -sel 0 -fit 0 -max 5000 -c 1 -seed 94843
+        python run.py -size $SIZE -length 15 -mutateR 0.01 -points 15 -prange 10 -fn "result/${date}/CSV/_.01_" -e 0 -sel 0 -fit 0 -max 5000 -c 1 -seed 94843
+        python run.py -size $SIZE -length 15 -mutateR 0.1 -points 15 -prange 10 -fn "result/${date}/CSV/_.1_" -e 0 -sel 0 -fit 0 -max 5000 -c 1 -seed 94843
+        # -seed 7431
+        # if ((count>$max))
+        # then
+        #     wait
+        #     let "count=0"
+        # fi
     done
 done
 
