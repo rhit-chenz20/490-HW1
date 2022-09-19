@@ -1,5 +1,6 @@
 import copy
 from abc import abstractmethod
+from turtle import right
 
 class Individual():
     def __init__(
@@ -57,8 +58,17 @@ class Genome(Individual):
                 temp = self.genome[x]
                 self.genome[x] = self.genome[anotherindex]
                 self.genome[anotherindex] = temp
-        # print(mutationCount)
     
     def __repr__(self):
         return "".join(str(x)+"," for x in self.genome) + " fitness: "+str(self.fitness)
 
+class Node():
+    def __init__(
+        self,
+        val,
+        left_child,
+        right_child
+    ):
+        self.value = val
+        self.right = right_child
+        self.left = left_child
