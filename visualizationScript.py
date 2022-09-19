@@ -45,7 +45,7 @@ with open('77431_geno.csv', 'r') as file:
     reader = csv.reader(file)
     count = 0
     for row in reader:
-        if (count != 0):
+        if (count > 0):
             generations[row[0]] = row[1:]
         count = count + 1
 
@@ -57,5 +57,5 @@ for j in range(10):
     plt.grid()
     plt.scatter(x, y)
     plt.legend()
-    plt.savefig("Generation_" + str(myList[j]) + ".pdf")
+    plt.savefig("ANDEREAD" + str(myList[j]) + ".jpeg")
     plt.clf()
