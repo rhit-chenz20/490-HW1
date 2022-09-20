@@ -5,14 +5,14 @@ declare max=30
 mkdir result
 mkdir result/${date}
 
-for WIDTH in 10
+for WIDTH in 20
 do
     for V in 1
     do
         let "count+=1"
         echo "running $count"
 
-        python run.py -width $WIDTH  -duration 10 -rule 12 -fn "result/${date}/" 
+        python run.py -width $WIDTH  -duration 20 -rule 126 -fn "result/${date}/" 
 
     done
 done

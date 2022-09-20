@@ -2,6 +2,8 @@ import random
 import csv
 from sre_parse import State
 
+from Model.visualizer import Visualizer
+
 from .agent import CA
 
 class Model():
@@ -18,6 +20,8 @@ class Model():
         else: seed = args.seed
         random.seed(seed)
         self.seed = seed
+        self.visualizer = Visualizer(self.seed, args.rule)
+        self.generations = []
         self.maxDuration = args.duration
         self.durationCount = 0
         rule = format(args.rule, "b")
@@ -45,6 +49,7 @@ class Model():
             
             individual = CA(state, ran, rule)
             CAs.append(individual)
+            # self.generations.append(individual.state)
         return CAs
 
     def calData(self):
@@ -93,6 +98,7 @@ class Model():
         """
         for x in range(self.maxDuration+1):
             self.evolve()
+            self.visualizer.visualizeLive(self.generations)
             # print(self.generation)
         self.end()
 
@@ -103,12 +109,15 @@ class Model():
         # print("Seed: " + str(self.seed))
         # print("Best Fitness: " + str(self.bestFitness) + " at generation: " + str(self.bestGeneration))
         # print("Approx Best Fitness: " + str(self.approxBestFitness) + " at generation: " + str(self.approxBestGeneration))
+        self.visualizer.visualize(self.generations)
+        self.visualizer.showLive()
         print("End of simulation")
         self.file.close()
 
     def evolve(self):
         for ind in self.CAs:
             print(ind)
+            self.generations.append(ind.state)
             ind.step()
         self.durationCount += 1
         data = [self.durationCount]
