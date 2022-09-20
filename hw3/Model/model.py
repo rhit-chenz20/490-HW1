@@ -20,43 +20,30 @@ class Model():
         self.seed = seed
         self.maxDuration = args.duration
         self.durationCount = 0
-        # bitstring representation of given Wolfram’s notation
         rule = format(args.rule, "b")
-
-
-        # self.approxFound = False
-        # self.approxBestFitness = 1000000
-        # self.approxBestGeneration = 0
-        # self.bestGeneration = 0
-        # self.bestFitness = 1000000
-        
-        self.file = open(args.filename+str(seed)+ '_2.csv', "w+")
+        if(len(rule)<8):
+            rule = rule[::-1] + "0"*(8-len(rule))
+        print("rule " + str(args.rule) + ": "+rule[::-1])
+        self.file = open(args.filename+"rule_"+str(args.rule) + "_"+str(seed)+ '.csv', "w+")
         self.writer = csv.writer(self.file)
         title = ["Generation", "Max_Fitness","Ave_Fitness", "Min_Fitness"]
-        title_genome = ["Generation"]
-        for x in range(args.pointSize):
-            title_genome.append(x)
-        self.geno_file = open(args.filename+str(seed)+ '_geno.csv', "w+")
-        self.geno_writer = csv.writer(self.geno_file)
         self.writeToFile(self.writer, title)
-        self.writeToFile(self.geno_writer, title_genome)
-        self.CAs = self.generateStartingState(1, random, args.width, args.state, rule)
+        self.CAs = self.generateRandomStartingState(1, random, args.width, args.state, rule)
 
-    def generateStartingState(self,size,ran, width, startingState:str, rule:str):
+    def generateRandomStartingState(self,size,ran, width, startingState:str, rule:str):
         CAs = []
         for x in range(size):
-            if(startingState==-1):
+            state = ""
+            if(startingState=="-1"):
                 """
-                TODO: generate random starting state
+                Generate random starting state
                 """
+                for z in range(width):
+                    state+=str(random.choice([0,1]))
             else:
-                state = []
-                for y in range(width):
-                    """
-                    TODO: generate starting state using given 
-                    """
-                    state.append(y+1)
-                individual = CA(state, ran, rule)
+                state = startingState
+            
+            individual = CA(state, ran, rule)
             CAs.append(individual)
         return CAs
 
@@ -118,14 +105,12 @@ class Model():
         # print("Approx Best Fitness: " + str(self.approxBestFitness) + " at generation: " + str(self.approxBestGeneration))
         print("End of simulation")
         self.file.close()
-        self.geno_file.close()
 
     def evolve(self):
-        if self.durationCount < self.maxDuration:
-            for ind in self.CAs:
-                print(ind)
-                ind.step()
-            self.durationCount += 1
+        for ind in self.CAs:
+            print(ind)
+            ind.step()
+        self.durationCount += 1
         data = [self.durationCount]
         data += self.calData()
         self.writeToFile(self.writer, data)

@@ -3,8 +3,8 @@ from Model.model import Model
 
 parser = argparse.ArgumentParser(description='Start female mating simulation')
 parser.add_argument('-width', '--width', type=int)
-parser.add_argument('-state', '--state', type=str, default="-1")
-parser.add_argument('-d', '--duration', type=int)
+parser.add_argument('-state', '--state', type=str, default="-1", required=False)
+parser.add_argument('-duration', '--duration', type=int)
 parser.add_argument('-rule', '--rule', type=int)
 # parser.add_argument('-max', '--maxGeneration', type=int, default=200, required=False)
 parser.add_argument('-fn', '--filename', type=str)
