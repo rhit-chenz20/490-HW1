@@ -88,4 +88,4 @@ class Model():
         self.durationCount += 1
         data = [self.durationCount]
         data += self.calData()
-        self.writeToFile(self.writer, data)
+        # self.writeToFile(self.writer, data)

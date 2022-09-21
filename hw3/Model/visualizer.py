@@ -1,3 +1,4 @@
+from array import array
 import matplotlib.pyplot as plt
 from matplotlib import colors
 import numpy as np
@@ -77,8 +78,8 @@ class Visualizer():
             data[k] = [int(i) for i in data[k]]
         data = np.array(data)
         G = np.zeros((len(stateList),len(stateList[0]),3))
-        G[data>0.5] = [254,165,0]
-        G[data<0.5] = [0,0,0]
+        G[data>0.5] = [0,0,0]
+        G[data<0.5] = [1,1,1]
         fig, ax = plt.subplots()
         ax.imshow(G)
         plt.axis("off")
@@ -91,9 +92,9 @@ class Visualizer():
             data[k] = [int(i) for i in data[k]]
         data = np.array(data)
         G = np.zeros((len(stateList),len(stateList[0]),3))
-        G[data>0.5] = [1,1,1]
+        G[data>0.5] = [0,0,0]
         G[data<0.5] = [1,1,1]
-        self.bits = self.liveAx.imshow(G, cmap="binary",interpolation='nearest')
+        self.bits = self.liveAx.imshow(G)
         plt.axis("off")
         plt.show(block=False)
         plt.pause(0.1)
@@ -102,13 +103,14 @@ class Visualizer():
         self.liveFig.canvas.blit(self.liveFig.bbox)
 
     def updateLive(self, stateList):
+        # pass
         self.liveFig.canvas.restore_region(self.bg)
         data = [[]] * (self.duration+2)
         for k in range(len(stateList)):
             data[k] = [*stateList[k]]
             data[k] = [int(i) for i in data[k]]
         for k in range(len(stateList), len(data)):
-            data[k] = np.zeros(self.width, dtype=int)
+            data[k] = [0] * self.width
         data = np.array(data)
         G = np.zeros((self.duration+2,self.width,3))
         G[data>0.5] = [0,0,0]
