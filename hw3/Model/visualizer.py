@@ -61,12 +61,14 @@ import random
 
 class Visualizer():
 
-    def __init__(self, seedNumber, ruleNumber):
+    def __init__(self, seedNumber, ruleNumber, width, duration):
         self.seedNumber = str(seedNumber)
         self.ruleNumber = str(ruleNumber)
         self.liveFig, self.liveAx = plt.subplots()
         self.bg = None
         self.bits = None
+        self.width = width
+        self.duration = duration
     
     def visualize(self, stateList):
         data = [[]] * len(stateList)
@@ -75,12 +77,12 @@ class Visualizer():
             data[k] = [int(i) for i in data[k]]
         data = np.array(data)
         G = np.zeros((len(stateList),len(stateList[0]),3))
-        G[data>0.5] = [1,0,1]
-        G[data<0.5] = [0,1,0]
+        G[data>0.5] = [254,165,0]
+        G[data<0.5] = [0,0,0]
         fig, ax = plt.subplots()
-        ax.imshow(G, cmap="binary",interpolation='nearest')
+        ax.imshow(G)
         plt.axis("off")
-        plt.savefig("Rule " + self.ruleNumber + "_" + self.seedNumber + ".png")
+        # plt.savefig("Rule " + self.ruleNumber + "_" + self.seedNumber + ".png")
 
     def initVisualizeLive(self, stateList):
         data = [[]] * len(stateList)
@@ -101,18 +103,23 @@ class Visualizer():
 
     def updateLive(self, stateList):
         self.liveFig.canvas.restore_region(self.bg)
-        data = [[]] * len(stateList)
+        data = [[]] * (self.duration+2)
         for k in range(len(stateList)):
             data[k] = [*stateList[k]]
             data[k] = [int(i) for i in data[k]]
+        for k in range(len(stateList), len(data)):
+            data[k] = np.zeros(self.width, dtype=int)
         data = np.array(data)
-        G = np.zeros((len(stateList),len(stateList[0]),3))
-        G[data>0.5] = [1,0,1]
-        G[data<0.5] = [0,1,0]
-        self.bits = self.liveAx.imshow(G, cmap="binary",interpolation='nearest')
+        G = np.zeros((self.duration+2,self.width,3))
+        G[data>0.5] = [0,0,0]
+        G[data<0.5] = [1,1,1]
+        self.bits.set_data(G)
         self.liveAx.draw_artist(self.bits)
         self.liveFig.canvas.blit(self.liveFig.bbox)
         self.liveFig.canvas.flush_events()
         plt.pause(.01)
+
+    def endLive(self):
+        plt.show(block=True)
 
 

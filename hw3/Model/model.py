@@ -20,7 +20,7 @@ class Model():
         else: seed = args.seed
         random.seed(seed)
         self.seed = seed
-        self.visualizer = Visualizer(self.seed, args.rule)
+        self.visualizer = Visualizer(self.seed, args.rule, args.width, args.duration)
         self.generations = []
         self.maxDuration = args.duration
         self.durationCount = 0
@@ -33,7 +33,7 @@ class Model():
         title = ["Generation", "Max_Fitness","Ave_Fitness", "Min_Fitness"]
         self.writeToFile(self.writer, title)
         self.CAs = self.generateRandomStartingState(1, random, args.width, args.state, rule)
-        G = ["0"*args.width]
+        G = ["0"*args.width]*args.duration
         self.visualizer.initVisualizeLive(G)
 
     def generateRandomStartingState(self,size,ran, width, startingState:str, rule:str):
@@ -115,6 +115,7 @@ class Model():
         # print("Approx Best Fitness: " + str(self.approxBestFitness) + " at generation: " + str(self.approxBestGeneration))
         self.visualizer.visualize(self.generations)
         # self.visualizer.showLive()
+        self.visualizer.endLive()
         print("End of simulation")
         self.file.close()
 
