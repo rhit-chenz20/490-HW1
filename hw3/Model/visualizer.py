@@ -84,6 +84,7 @@ class Visualizer():
         ax.imshow(G)
         plt.axis("off")
         # plt.savefig("Rule " + self.ruleNumber + "_" + self.seedNumber + ".png")
+        plt.close()
 
     def initVisualizeLive(self, stateList):
         data = [[]] * len(stateList)
@@ -103,7 +104,6 @@ class Visualizer():
         self.liveFig.canvas.blit(self.liveFig.bbox)
 
     def updateLive(self, stateList):
-        # pass
         self.liveFig.canvas.restore_region(self.bg)
         data = [[]] * (self.duration+2)
         for k in range(len(stateList)):
@@ -123,5 +123,4 @@ class Visualizer():
 
     def endLive(self):
         plt.show(block=True)
-
 
