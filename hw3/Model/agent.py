@@ -1,7 +1,3 @@
-import math
-from abc import abstractmethod
-from turtle import right
-
 class CA():
     def __init__(
         self,
