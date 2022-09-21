@@ -35,14 +35,20 @@ class Model():
 
     def generateRandomStartingState(self,size,ran, width, startingState:str, rule:str):
         CAs = []
+        
         for x in range(size):
-            state = ""
             if(startingState=="-1"):
+                state = ""
                 """
                 Generate random starting state
                 """
                 for z in range(width):
                     state+=str(random.choice([0,1]))
+
+            elif(startingState == "m"):
+                state = ["0"]*width
+                state[int(len(state)/2)] = "1"
+                state = "".join(state)
             else:
                 state = startingState
             
