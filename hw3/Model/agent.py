@@ -8,7 +8,6 @@ class CA():
         """
         Create a new Female.
         """
-        self.rule_segs = {"000":1,"001":2,"010":4,"011":8,"100":16,"101":32,"110":64,"111":128}
         self.state = state
         self.ran = ran
         self.rule = rule
