@@ -5,17 +5,11 @@ declare max=30
 mkdir result
 mkdir result/${date}
 
-for WIDTH in 20
+for WIDTH in 100
 do
     for V in 1
     do
-        
-        let "count = 0"
-        while [ $count -lt 256 ]
-        do
-            python run.py -width $WIDTH  -duration 1000 -rule $count -fn "result/${date}/" -state "00000000010000000000"
-            let "count+=1"
-        done
+        python run.py -width $WIDTH  -duration 100 -rule 193 -fn "result/${date}/" -state "m"
     done
 done
 

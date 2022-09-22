@@ -1,6 +1,7 @@
 import random
 import csv
 from sre_parse import State
+from tkinter.tix import Tree
 import numpy as np
 from Model.visualizer import Visualizer
 
@@ -26,12 +27,13 @@ class Model():
         self.maxDuration = args.duration
         self.durationCount = 0
         self.transientDur = -1
+        self.prematureEnd = False
         self.transientDurFound = False
         rule = format(args.rule, "b")
-        if(len(rule)<8):
+        if(len(rule)<=8):
             rule = rule[::-1] + "0"*(8-len(rule))
         lam = rule.count("0") / len(rule)
-        # print("rule " + str(args.rule) + ": "+rule[::-1] + " with lambda: "+str(lam))
+        print("rule " + str(args.rule) + ": "+rule[::-1] + " with lambda: "+str(lam))
         self.CAs = self.generateRandomStartingState(1, random, args.width, args.state, rule)
         G = ["0"*args.width]*args.duration
         self.visualizer.initVisualizeLive(G)
@@ -47,7 +49,6 @@ class Model():
                 """
                 for z in range(width):
                     state+=str(random.choice([0,1]))
-
             elif(startingState == "m"):
                 state = ["0"]*width
                 state[int(len(state)/2)] = "1"
@@ -76,8 +77,8 @@ class Model():
         for x in range(self.maxDuration+1):
             self.evolve()
             self.visualizer.updateLive(self.generations)
-            # self.visualizer.visualizeLive(self.generations)
-            # print(self.generation)
+            if (self.prematureEnd == True):
+                break
         self.end()
 
     def end(self):
@@ -88,8 +89,8 @@ class Model():
         # self.visualizer.showLive()
         self.visualizer.endLive()
         # print("Transient duration for rule " + str(self.rule) + " is " + str(self.transientDur))
-        print(str(self.transientDur))
-        # print("End of simulation")
+        # print(str(self.transientDur))
+        print("End of simulation")
 
     def evolve(self):
         
@@ -97,9 +98,11 @@ class Model():
             currentState = ind.state
             # if not (self.transientDurFound):
             #     # print(ind)
-            if (len(self.generations) > 1 and currentState in self.generations and not self.transientDurFound):
-                self.transientDur = self.durationCount
-                self.transientDurFound = True
+            # if (len(self.generations) > 1 and currentState in self.generations and not self.transientDurFound):
+            #     self.transientDur = self.durationCount
+            #     self.transientDurFound = True
+            #     self.prematureEnd = True
+            # print(ind)
             self.generations.append(ind.state)
             ind.step()
         self.durationCount += 1

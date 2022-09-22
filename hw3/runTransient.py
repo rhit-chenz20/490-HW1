@@ -14,6 +14,15 @@ args = parser.parse_args()
 model = Model(
     args=args
 )
-
-model.start()
-
+averageTrans = 0.0
+for k in range(100):
+    model.start()
+    if (model.transientDurFound):
+        averageTrans += float(model.transientDur)
+    else:
+        averageTrans += 1000.0
+    model = Model(
+        args=args
+        )
+averageTrans = averageTrans/100.0
+print(averageTrans)
