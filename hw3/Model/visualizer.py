@@ -87,40 +87,43 @@ class Visualizer():
         plt.close()
 
     def initVisualizeLive(self, stateList):
-        data = [[]] * len(stateList)
-        for k in range(len(stateList)):
-            data[k] = [*stateList[k]]
-            data[k] = [int(i) for i in data[k]]
-        data = np.array(data)
-        G = np.zeros((len(stateList),len(stateList[0]),3))
-        G[data>0.5] = [0,0,0]
-        G[data<0.5] = [1,1,1]
-        self.bits = self.liveAx.imshow(G)
-        plt.axis("off")
-        plt.show(block=False)
-        plt.pause(0.1)
-        self.bg = self.liveFig.canvas.copy_from_bbox(self.liveFig.bbox)
-        self.liveAx.draw_artist(self.bits)
-        self.liveFig.canvas.blit(self.liveFig.bbox)
+        pass
+        # data = [[]] * len(stateList)
+        # for k in range(len(stateList)):
+        #     data[k] = [*stateList[k]]
+        #     data[k] = [int(i) for i in data[k]]
+        # data = np.array(data)
+        # G = np.zeros((len(stateList),len(stateList[0]),3))
+        # G[data>0.5] = [0,0,0]
+        # G[data<0.5] = [1,1,1]
+        # self.bits = self.liveAx.imshow(G)
+        # plt.axis("off")
+        # plt.show(block=False)
+        # plt.pause(0.1)
+        # self.bg = self.liveFig.canvas.copy_from_bbox(self.liveFig.bbox)
+        # self.liveAx.draw_artist(self.bits)
+        # self.liveFig.canvas.blit(self.liveFig.bbox)
 
     def updateLive(self, stateList):
-        self.liveFig.canvas.restore_region(self.bg)
-        data = [[]] * (self.duration+2)
-        for k in range(len(stateList)):
-            data[k] = [*stateList[k]]
-            data[k] = [int(i) for i in data[k]]
-        for k in range(len(stateList), len(data)):
-            data[k] = [0] * self.width
-        data = np.array(data)
-        G = np.zeros((self.duration+2,self.width,3))
-        G[data>0.5] = [0,0,0]
-        G[data<0.5] = [1,1,1]
-        self.bits.set_data(G)
-        self.liveAx.draw_artist(self.bits)
-        self.liveFig.canvas.blit(self.liveFig.bbox)
-        self.liveFig.canvas.flush_events()
-        plt.pause(.01)
+        pass
+        # self.liveFig.canvas.restore_region(self.bg)
+        # data = [[]] * (self.duration+2)
+        # for k in range(len(stateList)):
+        #     data[k] = [*stateList[k]]
+        #     data[k] = [int(i) for i in data[k]]
+        # for k in range(len(stateList), len(data)):
+        #     data[k] = [0] * self.width
+        # data = np.array(data)
+        # G = np.zeros((self.duration+2,self.width,3))
+        # G[data>0.5] = [0,0,0]
+        # G[data<0.5] = [1,1,1]
+        # self.bits.set_data(G)
+        # self.liveAx.draw_artist(self.bits)
+        # self.liveFig.canvas.blit(self.liveFig.bbox)
+        # self.liveFig.canvas.flush_events()
+        # plt.pause(.01)
 
     def endLive(self):
-        plt.show(block=True)
+        pass
+        # plt.show(block=True)
 
