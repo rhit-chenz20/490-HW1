@@ -12,7 +12,7 @@ do
         let "count+=1"
         echo "running $count"
 
-        python run.py -width $WIDTH  -duration 100 -rule 126 -fn "result/${date}/" -state "00000000010000000000" -dimen 1
+        python run.py -width $WIDTH  -duration 100 -rule 126 -fn "result/${date}/" -state "0000000000000000000001000000000000000000000" 
 
     done
 done
