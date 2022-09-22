@@ -19,17 +19,20 @@ class Model():
             seed = random.randint(0,100000)
         else: seed = args.seed
         random.seed(seed)
+        self.rule = args.rule
         self.seed = seed
         self.visualizer = Visualizer(self.seed, args.rule, args.width, args.duration)
         self.generations = []
         self.maxDuration = args.duration
         self.durationCount = 0
+        self.transientDur = -1
+        self.transientDurFound = False
         rule = format(args.rule, "b")
         if(len(rule)<8):
             rule = rule[::-1] + "0"*(8-len(rule))
         lam = rule.count("0") / len(rule)
-        print("rule " + str(args.rule) + ": "+rule[::-1] + " with lambda: "+str(lam))
-        self.CAs = self.generateRandomStartingState(1, random, args.width, args.state, rule, args.dimension)
+        # print("rule " + str(args.rule) + ": "+rule[::-1] + " with lambda: "+str(lam))
+        self.CAs = self.generateRandomStartingState(1, random, args.width, args.state, rule)
         G = ["0"*args.width]*args.duration
         self.visualizer.initVisualizeLive(G)
 
@@ -86,11 +89,19 @@ class Model():
         self.visualizer.visualize(self.generations)
         # self.visualizer.showLive()
         self.visualizer.endLive()
-        print("End of simulation")
+        # print("Transient duration for rule " + str(self.rule) + " is " + str(self.transientDur))
+        print(str(self.transientDur))
+        # print("End of simulation")
 
     def evolve(self):
+        
         for ind in self.CAs:
-            print(ind)
+            currentState = ind.state
+            # if not (self.transientDurFound):
+            #     # print(ind)
+            if (len(self.generations) > 1 and currentState in self.generations and not self.transientDurFound):
+                self.transientDur = self.durationCount
+                self.transientDurFound = True
             self.generations.append(ind.state)
             ind.step()
         self.durationCount += 1
