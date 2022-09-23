@@ -124,6 +124,38 @@ class Visualizer():
         self.liveFig.canvas.flush_events()
         plt.pause(.01)
 
+    def initLiveConway(self, stateList):
+        data = []
+        for k in range(len(stateList)):
+            data.append([*stateList[k]])
+            data[k] = [int(i) for i in data[k]]
+        data = np.array(data)
+        G = np.zeros((len(stateList),len(stateList[0]),3))
+        G[data>0.5] = [0,0,0]
+        G[data<0.5] = [1,1,1]
+        self.bits = self.liveAx.imshow(G)
+        plt.axis("off")
+        plt.show(block=False)
+        plt.pause(0.1)
+        self.bg = self.liveFig.canvas.copy_from_bbox(self.liveFig.bbox)
+        self.liveAx.draw_artist(self.bits)
+        self.liveFig.canvas.blit(self.liveFig.bbox)
+    
+    def updateLiveConway(self, stateList):
+        self.liveFig.canvas.restore_region(self.bg)
+        data = []
+        for k in range(len(stateList)):
+            data.append([*stateList[k]])
+            data[k] = [int(i) for i in data[k]]
+        data = np.array(data)
+        G = np.zeros((len(stateList),len(stateList[0]),3))
+        G[data>0.5] = [0,0,0]
+        G[data<0.5] = [1,1,1]
+        self.bits.set_data(G)
+        self.liveAx.draw_artist(self.bits)
+        self.liveFig.canvas.blit(self.liveFig.bbox)
+        self.liveFig.canvas.flush_events()
+        plt.pause(.1)
     def endLive(self):
         # pass/
         plt.show(block=True)

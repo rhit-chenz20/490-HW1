@@ -29,14 +29,18 @@ class Model():
         self.transientDur = -1
         self.prematureEnd = False
         self.transientDurFound = False
+        self.dimen = args.dimension
         rule = format(args.rule, "b")
         if(len(rule)<=8):
             rule = rule[::-1] + "0"*(8-len(rule))
         lam = rule.count("1") / len(rule)
         # print("rule " + str(args.rule) + ": "+rule[::-1] + " with lambda: "+str(lam))
         self.CAs = self.generateRandomStartingState(1, random, args.width,args.height, args.state, rule, args.dimension,args.percentage/100)
-        G = ["0"*args.width]*args.duration
-        self.visualizer.initVisualizeLive(G)
+        G = ["0"*args.width]*args.height
+        if (self.dimen == 1):
+            self.visualizer.initVisualizeLive(G)
+        else:
+            self.visualizer.initLiveConway(G)
 
     def generateRandomStartingState(self,size,ran, width,height, startingState:str, rule:str, dimension, percentage):
         CAs = []
@@ -85,7 +89,8 @@ class Model():
         """
         for x in range(self.maxDuration+1):
             self.evolve()
-            self.visualizer.updateLive(self.generations)
+            if (self.dimen == 1):
+                self.visualizer.updateLive(self.generations)
             if (self.prematureEnd == True):
                 break
         self.end()
@@ -94,9 +99,12 @@ class Model():
         """
         End the evolution
         """
-        # self.visualizer.visualize(self.generations)
+        print(self.generations)
+        if (self.dimen ==1 ):
+            self.visualizer.visualize(self.generations)
+        
         # self.visualizer.showLive()
-        # self.visualizer.endLive()
+        self.visualizer.endLive()
         # print("Transient duration for rule " + str(self.rule) + " is " + str(self.transientDur))
         # print(str(self.transientDur))
         print("End of simulation")
@@ -112,6 +120,8 @@ class Model():
             #     self.transientDurFound = True
             #     self.prematureEnd = True
             # print(ind)
+            if (self.dimen == 2):
+                self.visualizer.updateLiveConway(ind.state)
             self.generations.append(ind.state)
             ind.step()
         self.durationCount += 1

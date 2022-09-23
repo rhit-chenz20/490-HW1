@@ -16,7 +16,6 @@ class CA():
         self.computeNextState()
 
     def computeNextState(self):
-        print(self)
         if(type(self.state)==str):
             old = self.state[len(self.state)-1]+self.state[:2]
             binint = int(old,2)
