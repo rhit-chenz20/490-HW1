@@ -5,6 +5,7 @@ declare max=30
 mkdir result
 mkdir result/${date}
 
+
 for WIDTH in 100
 do
     for V in 1
