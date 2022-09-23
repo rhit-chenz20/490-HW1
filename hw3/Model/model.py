@@ -32,7 +32,7 @@ class Model():
         rule = format(args.rule, "b")
         if(len(rule)<=8):
             rule = rule[::-1] + "0"*(8-len(rule))
-        lam = rule.count("0") / len(rule)
+        lam = rule.count("1") / len(rule)
         # print("rule " + str(args.rule) + ": "+rule[::-1] + " with lambda: "+str(lam))
         self.CAs = self.generateRandomStartingState(1, random, args.width,args.height, args.state, rule, args.dimension,args.percentage/100)
         G = ["0"*args.width]*args.duration
