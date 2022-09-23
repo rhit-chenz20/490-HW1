@@ -9,7 +9,7 @@ for WIDTH in 100
 do
     for V in 1
     do
-        python run.py -width $WIDTH  -duration 100 -rule 193 -fn "result/${date}/" -state "m"
+        python run.py -width $WIDTH  -duration 300 -rule 193 -fn "result/${date}/" -state "m"
     done
 done
 

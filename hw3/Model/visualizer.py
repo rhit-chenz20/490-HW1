@@ -84,7 +84,7 @@ class Visualizer():
         fig, ax = plt.subplots()
         ax.imshow(G)
         plt.axis("off")
-        plt.savefig(r"photos/Rule " + self.ruleNumber + "_" + self.seedNumber + ".png")
+        plt.savefig(r"photos/part1.5/Rule " + self.ruleNumber + "_" + self.seedNumber + ".png")
         plt.close()
 
     def initVisualizeLive(self, stateList):
