@@ -33,12 +33,12 @@ class Model():
         if(len(rule)<=8):
             rule = rule[::-1] + "0"*(8-len(rule))
         lam = rule.count("0") / len(rule)
-        print("rule " + str(args.rule) + ": "+rule[::-1] + " with lambda: "+str(lam))
-        self.CAs = self.generateRandomStartingState(1, random, args.width, args.state, rule)
+        # print("rule " + str(args.rule) + ": "+rule[::-1] + " with lambda: "+str(lam))
+        self.CAs = self.generateRandomStartingState(1, random, args.width,args.height, args.state, rule, args.dimension,args.percentage/100)
         G = ["0"*args.width]*args.duration
         self.visualizer.initVisualizeLive(G)
 
-    def generateRandomStartingState(self,size,ran, width, startingState:str, rule:str, dimension):
+    def generateRandomStartingState(self,size,ran, width,height, startingState:str, rule:str, dimension, percentage):
         CAs = []
         if(dimension == 1):
             for x in range(size):
@@ -58,10 +58,16 @@ class Model():
                     state = startingState
                 
                 individual = CA(state, ran, rule)
-                CAs.append(individual)
-                self.generations.append(individual.state)
-        # elif (dimension ==2):
-
+        elif (dimension ==2):
+            for x in range(size):
+                state = []
+                for y in range(height):
+                    states = [1,0]
+                    weights = [percentage, 1-percentage]
+                    state.append(random.choices(states,weights,k=width))
+                individual = CA(state, ran,rule)
+        CAs.append(individual)
+        self.generations.append(individual.state)
 
         return CAs
 
@@ -88,9 +94,9 @@ class Model():
         """
         End the evolution
         """
-        self.visualizer.visualize(self.generations)
+        # self.visualizer.visualize(self.generations)
         # self.visualizer.showLive()
-        self.visualizer.endLive()
+        # self.visualizer.endLive()
         # print("Transient duration for rule " + str(self.rule) + " is " + str(self.transientDur))
         # print(str(self.transientDur))
         print("End of simulation")
