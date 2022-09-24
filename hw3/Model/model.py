@@ -105,7 +105,7 @@ class Model():
             self.visualizer.visualize(self.generations)
         
         # self.visualizer.showLive()
-        self.visualizer.endLive()
+        # self.visualizer.endLive()
         # print("Transient duration for rule " + str(self.rule) + " is " + str(self.transientDur))
         # print(str(self.transientDur))
         print("End of simulation")
