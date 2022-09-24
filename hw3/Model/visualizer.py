@@ -156,6 +156,7 @@ class Visualizer():
         self.liveFig.canvas.blit(self.liveFig.bbox)
         self.liveFig.canvas.flush_events()
         plt.pause(.1)
+        
     def endLive(self):
         # pass/
         plt.show(block=True)

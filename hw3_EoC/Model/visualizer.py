@@ -87,7 +87,7 @@ class Visualizer():
         fig, ax = plt.subplots()
         ax.imshow(G)
         plt.axis("off")
-        plt.savefig(r"photos/part1.5/lambda" + str(self.lampda) + "_" + self.seedNumber + ".png", dpi=1000,bbox_inches='tight')
+        plt.savefig(r"photos/recreation/" + str(self.lampda) + "_" + self.seedNumber + ".png", dpi=1000,bbox_inches='tight')
         plt.close()
 
     def initVisualizeLive(self, stateList):
