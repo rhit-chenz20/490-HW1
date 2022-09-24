@@ -20,6 +20,7 @@ class Model():
             seed = random.randint(0,100000)
         else: seed = args.seed
         random.seed(seed)
+        print("seed",seed)
         self.rule = args.rule
         self.seed = seed
         self.visualizer = Visualizer(self.seed, args.rule, args.width, args.duration)
@@ -99,7 +100,7 @@ class Model():
         """
         End the evolution
         """
-        print(self.generations)
+        # print(self.generations)
         if (self.dimen ==1 ):
             self.visualizer.visualize(self.generations)
         

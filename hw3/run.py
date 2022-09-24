@@ -3,7 +3,7 @@ from Model.model import Model
 
 parser = argparse.ArgumentParser(description='Start female mating simulation')
 parser.add_argument('-width', '--width', type=int)
-parser.add_argument('-percentageAlive', '--percentage', type = float, default=10, required=False)
+parser.add_argument('-percentageAlive', '--percentage', type = float, default=8, required=False)
 parser.add_argument('-heightFor2D', '--height', type=int)
 parser.add_argument('-state', '--state', type=str, default="-1", required=False)
 parser.add_argument('-duration', '--duration', type=int)

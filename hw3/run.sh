@@ -6,11 +6,11 @@ mkdir result
 mkdir result/${date}
 
 
-for WIDTH in 200
+for WIDTH in 100
 do
     for V in 1
     do
-        python run.py -width $WIDTH -duration 3000 -rule 193 -fn "result/${date}/" -state "m" -dimen 2 --height 200
+        python run.py -width $WIDTH -duration 150 -rule 193 -fn "result/${date}/" -state "m" -dimen 2 -heightFor2D $WIDTH  -seed 85710
     done
 done
 
